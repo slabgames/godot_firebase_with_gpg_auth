@@ -49,4 +49,4 @@
         google()
     }
     }
-  note : please ensure the internet permision is allowed
+  Note: Please make sure internet permission is allowed
