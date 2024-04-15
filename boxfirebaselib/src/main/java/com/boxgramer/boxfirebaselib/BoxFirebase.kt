@@ -8,6 +8,9 @@ import android.widget.Toast
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
 import com.google.firebase.Timestamp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -29,6 +32,8 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
 
     private var currentUser : FirebaseUser?  = null
     private var TAG : String = "godot"
+
+    private  var  analitic : FirebaseAnalytics ?= null
 
     override fun getPluginName(): String {
         return "BoxFirebase"
@@ -60,6 +65,7 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
         Log.d("godot", "last initialize boxfirebase")
 
         dbFirestore = Firebase.firestore
+        analitic = Firebase.analytics
         auth = Firebase.auth
         Log.d("godot", "init auth: ${auth.toString()}, firestore : ${dbFirestore.toString()} ")
     }
@@ -178,5 +184,11 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
         emitSignal("onTestEmitSingal" , "hello from plugin android ")
     }
 
+    @UsedByGodot
+    fun  analitycLogCustom(nameEvent : String , nameParam:String  , value :String  )  {
+        analitic?.logEvent(nameEvent) {
+            param(nameParam, value)
+        }
+    }
 
 }
