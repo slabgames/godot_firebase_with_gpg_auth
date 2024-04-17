@@ -186,9 +186,12 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
 
     @UsedByGodot
     fun  analitycLogCustom(nameEvent : String , nameParam:String  , value :String  )  {
+
+        Log.d(TAG, "analitic log event : ${nameEvent}, param :  ${nameParam}, value: ${value}" )
         analitic?.logEvent(nameEvent) {
             param(nameParam, value)
         }
+
     }
 
 }
