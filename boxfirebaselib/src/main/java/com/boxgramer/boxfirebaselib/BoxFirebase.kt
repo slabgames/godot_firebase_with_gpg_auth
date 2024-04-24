@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
+import com.google.firebase.FirebaseApp
 import com.google.firebase.Timestamp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -63,6 +64,8 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     @UsedByGodot
     fun initialize()  {
         Log.d("godot", "last initialize boxfirebase")
+
+        godot.context?.let { FirebaseApp.initializeApp(/* context = */ it) }
 
         dbFirestore = Firebase.firestore
         analitic = Firebase.analytics
