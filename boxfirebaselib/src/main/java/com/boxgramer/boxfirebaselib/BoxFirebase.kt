@@ -1,6 +1,7 @@
 package com.boxgramer.boxfirebaselib
 
 import android.app.Activity
+import android.content.Intent
 import android.util.ArraySet
 import android.util.Log
 import android.view.View
@@ -195,6 +196,17 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
             param(nameParam, value)
         }
 
+    }
+
+    @UsedByGodot
+    fun shareImageIntent() {
+        val sendIntent : Intent  = Intent().apply {
+            action  = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT , "Test Share data")
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        godot.startActivity(shareIntent)
     }
 
 }
