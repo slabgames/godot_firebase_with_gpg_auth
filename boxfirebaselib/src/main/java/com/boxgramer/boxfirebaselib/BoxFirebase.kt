@@ -42,6 +42,9 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     }
 //
     override fun onMainCreate(activity: Activity?): View? {
+    if (activity != null) {
+        FirebaseApp.initializeApp(activity.applicationContext)
+    };
         return super.onMainCreate(activity)
     }
 
@@ -65,8 +68,6 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     @UsedByGodot
     fun initialize()  {
         Log.d("godot", "last initialize boxfirebase")
-
-        godot.context?.let { FirebaseApp.initializeApp(/* context = */ it) }
 
         dbFirestore = Firebase.firestore
         analitic = Firebase.analytics
