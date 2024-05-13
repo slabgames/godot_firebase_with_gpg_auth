@@ -60,6 +60,10 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
         signals.add(SignalInfo("onStartGetData"))
         signals.add(SignalInfo("onSuccessGetData", String::class.java))
         signals.add(SignalInfo("onErrorGetData", String::class.java))
+        signals.add(SignalInfo("onStartGetAllData"))
+        signals.add(SignalInfo("onSuccessGetAllData", String::class.java))
+        signals.add(SignalInfo("onErrorGetAllData", String::class.java))
+
 
         return signals
 
@@ -90,6 +94,8 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
                     Log.d("godot", "sing-in anonymously: failed ", e)
                     emitSignal("onErrorCheckAuth", e.message)
                 }
+        }else {
+            emitSignal("onSuccessCheckAuth", currentUser?.uid.toString())
         }
 
     }
@@ -130,7 +136,7 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
         emitSignal("onStartGetData")
         if (currentUser == null )  {
             Log.d(TAG , "User Not Found")
-//            emitSignal("onErrorGetData", "User Not Found")
+            emitSignal("onErrorGetData", "User Not Found")
             return
         }
         dbFirestore?.collection(nameColletion)
@@ -140,7 +146,7 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
                if(doc != null) {
                    Log.d(TAG, "Data was Founded")
                    Log.d(TAG, doc.toString())
-                    emitSignal("onSuccessGetData", doc.toString()  )
+                    emitSignal("onSuccessGetData", doc.data.toString()  )
                }else {
                    val message = "Data Not found"
                    Log.d(TAG , "Data not found")
@@ -149,11 +155,38 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
             }
             ?.addOnFailureListener { e ->
                 Log.d(TAG, "failed retrive data ", e)
-//                emitSignal("onErrorGetData", e.message)
+                emitSignal("onErrorGetData", e.message)
             }
 
     }
 
+    @UsedByGodot
+    fun getDataAllUser(nameColletion: String) {
+        Log.d(TAG , "start get all data")
+
+        emitSignal("onStartGetAllData")
+
+        dbFirestore?.collection(nameColletion)
+            ?.get()
+            ?.addOnSuccessListener { snapShot->
+                if(snapShot!= null) {
+
+                    Log.d(TAG, "Data was Founded")
+                    var data  = snapShot.documents.map{ d -> d.data}
+                    Log.d(TAG, data.toString())
+                    emitSignal("onSuccessGetAllData", data.toString()  )
+                }else {
+                    val message = "Data Not found"
+                    Log.d(TAG , "Data not found")
+                    emitSignal("onErrorGetAllData", message)
+                }
+            }
+            ?.addOnFailureListener { e ->
+                Log.d(TAG, "failed retrive data ", e)
+                emitSignal("onErrorGetAllData", e.message)
+            }
+
+    }
 
     @UsedByGodot
     fun testLog()  {
