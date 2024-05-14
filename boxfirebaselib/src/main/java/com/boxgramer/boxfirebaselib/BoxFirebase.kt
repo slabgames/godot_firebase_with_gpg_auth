@@ -6,6 +6,7 @@ import android.util.ArraySet
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
 import com.google.firebase.FirebaseApp
@@ -20,10 +21,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import io.grpc.internal.JsonParser
 import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.GodotPlugin
 import org.godotengine.godot.plugin.SignalInfo
 import org.godotengine.godot.plugin.UsedByGodot
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.StringReader
 import java.util.Date
 
 
@@ -144,9 +149,16 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
             ?.get()
             ?.addOnSuccessListener { doc->
                if(doc != null) {
-                   Log.d(TAG, "Data was Founded")
-                   Log.d(TAG, doc.toString())
-                    emitSignal("onSuccessGetData", doc.data.toString()  )
+                   var strReader = doc.data?.let { JsonObject(it) }
+                   if (strReader != null) {
+                       Log.d(TAG, "Data was Founded")
+                       Log.d(TAG, strReader.toJsonString())
+                       emitSignal("onSuccessGetData",  strReader.toJsonString()  )
+                   }else {
+                       Log.d(TAG , "Data not found")
+                       emitSignal("onErrorGetData", "data not found")
+
+                   }
                }else {
                    val message = "Data Not found"
                    Log.d(TAG , "Data not found")
@@ -172,9 +184,11 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
                 if(snapShot!= null) {
 
                     Log.d(TAG, "Data was Founded")
-                    var data  = snapShot.documents.map{ d -> d.data}
-                    Log.d(TAG, data.toString())
-                    emitSignal("onSuccessGetAllData", data.toString()  )
+                    var data  = JsonArray( snapShot.documents.map{ d -> d.data?.let {
+                        JsonObject(it)
+                    }})
+                    Log.d(TAG, data.toJsonString())
+                    emitSignal("onSuccessGetAllData", data.toJsonString()  )
                 }else {
                     val message = "Data Not found"
                     Log.d(TAG , "Data not found")
@@ -187,6 +201,9 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
             }
 
     }
+
+
+
 
     @UsedByGodot
     fun testLog()  {
