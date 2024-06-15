@@ -77,7 +77,10 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     @UsedByGodot
     fun initialize()  {
         Log.d("godot", "last initialize boxfirebase")
-        FirebaseApp.initializeApp(godot.requireContext())
+        activity?.runOnUiThread(Runnable(){
+            FirebaseApp.initializeApp(godot.requireContext())
+        })
+
 
 
         dbFirestore = Firebase.firestore
