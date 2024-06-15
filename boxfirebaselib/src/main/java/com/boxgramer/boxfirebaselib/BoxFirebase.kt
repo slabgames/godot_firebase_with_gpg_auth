@@ -77,6 +77,8 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     @UsedByGodot
     fun initialize()  {
         Log.d("godot", "last initialize boxfirebase")
+        FirebaseApp.initializeApp(activity!!.applicationContext)
+
 
         dbFirestore = Firebase.firestore
         analitic = Firebase.analytics
