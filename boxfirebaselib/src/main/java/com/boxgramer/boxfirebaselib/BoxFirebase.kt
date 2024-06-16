@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import io.grpc.internal.JsonParser
+//import io.grpc.internal.JsonParser
 import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.GodotPlugin
 import org.godotengine.godot.plugin.SignalInfo
@@ -47,9 +47,13 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     }
 //
     override fun onMainCreate(activity: Activity?): View? {
-    if (activity != null) {
-        FirebaseApp.initializeApp(activity.applicationContext)
-    };
+//    if (activity != null) {
+//        FirebaseApp.initializeApp(activity.applicationContext)
+//    };
+    dbFirestore = Firebase.firestore
+    analitic = Firebase.analytics
+    auth = Firebase.auth
+    Log.d("godot", "init auth: ${auth.toString()}, firestore : ${dbFirestore.toString()} ")
         return super.onMainCreate(activity)
     }
 
@@ -77,16 +81,11 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     @UsedByGodot
     fun initialize()  {
         Log.d("godot", "last initialize boxfirebase")
-        activity?.runOnUiThread(Runnable(){
-            FirebaseApp.initializeApp(godot.requireContext())
-        })
+//        activity?.runOnUiThread(Runnable(){
+//            FirebaseApp.initializeApp(godot.requireContext())
+//        })
 
 
-
-        dbFirestore = Firebase.firestore
-        analitic = Firebase.analytics
-        auth = Firebase.auth
-        Log.d("godot", "init auth: ${auth.toString()}, firestore : ${dbFirestore.toString()} ")
     }
 
     @UsedByGodot
