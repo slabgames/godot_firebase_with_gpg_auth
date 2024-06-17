@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -179,6 +180,8 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
         emitSignal("onStartGetAllData")
 
         dbFirestore?.collection(nameColletion)
+            ?.orderBy("highscore", Query.Direction.DESCENDING )
+            ?.limit(10)
             ?.get()
             ?.addOnSuccessListener { snapShot->
                 if(snapShot!= null) {
