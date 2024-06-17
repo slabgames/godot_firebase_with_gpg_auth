@@ -5,6 +5,7 @@
   2. add dependencies in buld gradle -> PROJECT_DIR/android/build
 
     implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
+    implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.beust:klaxon:5.5")
