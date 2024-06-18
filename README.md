@@ -1,3 +1,4 @@
+
 # godot_firebase_with_gpg_auth
 
 # How To Setup 
@@ -62,4 +63,8 @@
       }
       }
       ```
+      
+      7. set the version of gradle in PROJECT_DIR/gradle/wrapper/gradle-wrapper.properties
+      distributionUrl=https\://services.gradle.org/distributions/gradle-7.5-bin.zip
+
   Note: Please make sure internet permission is allowed
