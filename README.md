@@ -14,8 +14,8 @@
   3. add  id 'com.google.gms.google-services' in PROJECT_DIR/android/build/build.gradle
     ```
     plugins {
-        id 'com.android.application'
-        id 'org.jetbrains.kotlin.android'
+        ...
+
         id 'com.google.gms.google-services'
     }
     ```
