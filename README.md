@@ -12,6 +12,7 @@
         ```
 
   3. add  id 'com.google.gms.google-services' in PROJECT_DIR/android/build/build.gradle
+    
     ```
     plugins {
         ...
