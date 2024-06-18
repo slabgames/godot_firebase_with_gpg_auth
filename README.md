@@ -2,22 +2,31 @@
 
 # How To Setup 
   1. Add google-services.json  in PROJECT_DIR/android/build
-  2. add dependencies in buld gradle -> PROJECT_DIR/android/build
-
-    implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
+  2. add dependencies in build.gradle -> PROJECT_DIR/android/build
+```
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.beust:klaxon:5.5")
-    
+    ```
 
-  3. change androidGradlePlugin to 7.3.0 in ->  PROJECT_DIR/android/build/config.gradle
+    add  id 'com.google.gms.google-services' in PROJECT_DIR/android/build/build.gradle
+```
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+}
+```
+
+  3. change androidGradlePlugin to 7.4.2 in ->  PROJECT_DIR/android/build/config.gradle
      ```
      ext.versions = [
-      androidGradlePlugin: '7.3.0',
-      compileSdk         : 33,
+      androidGradlePlugin: '7.4.2',
+      compileSdk         : 34,
       minSdk             : 19, // Also update 'platform/android/export/export_plugin.cpp#DEFAULT_MIN_SDK_VERSION'
-      targetSdk          : 33, // Also update 'platform/android/export/export_plugin.cpp#DEFAULT_TARGET_SDK_VERSION'
+      targetSdk          : 34, // Also update 'platform/android/export/export_plugin.cpp#DEFAULT_TARGET_SDK_VERSION'
       buildTools         : '33.0.2',
       kotlinVersion      : '1.7.0',
       fragmentVersion    : '1.3.6',
@@ -33,9 +42,9 @@
       kotlinGradlePlugin : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlinVersion",
       kotlinStdLib       : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion",
       androidxFragment   : "androidx.fragment:fragment:$versions.fragmentVersion",
-      gmsGoogle          : "com.google.gms:google-services:4.3.8",
+      gmsGoogle          : "com.google.gms:google-services:4.4.2",
      ]
- 5. add  id 'com.google.gms.google-services' version '4.3.8' apply false in -> PROJECT_DIR/android/build/setting.gradle
+ 5. add  id 'com.google.gms.google-services' version '4.4.2' apply false in -> PROJECT_DIR/android/build/setting.gradle
     ```
     pluginManagement {
     apply from: 'config.gradle'
@@ -43,7 +52,7 @@
     plugins {
         id 'com.android.application' version versions.androidGradlePlugin
         id 'org.jetbrains.kotlin.android' version versions.kotlinVersion
-        id 'com.google.gms.google-services' version '4.3.8' apply false
+        id 'com.google.gms.google-services' version '4.4.2' apply false
     }
     repositories {
         gradlePluginPortal()
