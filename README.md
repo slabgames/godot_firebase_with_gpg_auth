@@ -3,22 +3,22 @@
 # How To Setup 
   1. Add google-services.json  in PROJECT_DIR/android/build
   2. add dependencies in build.gradle -> PROJECT_DIR/android/build
-```
-    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.beust:klaxon:5.5")
-    ```
+      ```
+        implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+        implementation("com.google.firebase:firebase-analytics")
+        implementation("com.google.firebase:firebase-firestore")
+        implementation("com.google.firebase:firebase-auth")
+        implementation("com.beust:klaxon:5.5")
+        ```
 
   3. add  id 'com.google.gms.google-services' in PROJECT_DIR/android/build/build.gradle
-```
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'com.google.gms.google-services'
-}
-```
+    ```
+    plugins {
+        id 'com.android.application'
+        id 'org.jetbrains.kotlin.android'
+        id 'com.google.gms.google-services'
+    }
+    ```
 
   4. change androidGradlePlugin to 7.4.2 in ->  PROJECT_DIR/android/build/config.gradle
      ```
@@ -45,20 +45,20 @@ plugins {
       gmsGoogle          : "com.google.gms:google-services:4.4.2",
      ]
      ```
- 6. add  id 'com.google.gms.google-services' version '4.4.2' apply false in -> PROJECT_DIR/android/build/setting.gradle
-    ```
-    pluginManagement {
-    apply from: 'config.gradle'
+  6. add  id 'com.google.gms.google-services' version '4.4.2' apply false in -> PROJECT_DIR/android/build/setting.gradle
+      ```
+      pluginManagement {
+      apply from: 'config.gradle'
 
-    plugins {
-        id 'com.android.application' version versions.androidGradlePlugin
-        id 'org.jetbrains.kotlin.android' version versions.kotlinVersion
-        id 'com.google.gms.google-services' version '4.4.2' apply false
-    }
-    repositories {
-        gradlePluginPortal()
-        google()
-    }
-    }
-    ```
+      plugins {
+          id 'com.android.application' version versions.androidGradlePlugin
+          id 'org.jetbrains.kotlin.android' version versions.kotlinVersion
+          id 'com.google.gms.google-services' version '4.4.2' apply false
+      }
+      repositories {
+          gradlePluginPortal()
+          google()
+      }
+      }
+      ```
   Note: Please make sure internet permission is allowed
