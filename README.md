@@ -11,7 +11,7 @@
     implementation("com.beust:klaxon:5.5")
     ```
 
-    add  id 'com.google.gms.google-services' in PROJECT_DIR/android/build/build.gradle
+  3. add  id 'com.google.gms.google-services' in PROJECT_DIR/android/build/build.gradle
 ```
 plugins {
     id 'com.android.application'
@@ -20,7 +20,7 @@ plugins {
 }
 ```
 
-  3. change androidGradlePlugin to 7.4.2 in ->  PROJECT_DIR/android/build/config.gradle
+  4. change androidGradlePlugin to 7.4.2 in ->  PROJECT_DIR/android/build/config.gradle
      ```
      ext.versions = [
       androidGradlePlugin: '7.4.2',
@@ -35,7 +35,7 @@ plugins {
       ndkVersion         : '23.2.8568313' // Also update 'platform/android/detect.py#get_ndk_version' when this is updated.
      ]
      ```
-  4. add gmsGoogle in -> PROJECT_DIR/android/build/config.gradle
+  5. add gmsGoogle in -> PROJECT_DIR/android/build/config.gradle
      ```
      ext.libraries = [
        androidGradlePlugin: "com.android.tools.build:gradle:$versions.androidGradlePlugin",
@@ -44,7 +44,8 @@ plugins {
       androidxFragment   : "androidx.fragment:fragment:$versions.fragmentVersion",
       gmsGoogle          : "com.google.gms:google-services:4.4.2",
      ]
- 5. add  id 'com.google.gms.google-services' version '4.4.2' apply false in -> PROJECT_DIR/android/build/setting.gradle
+     ```
+ 6. add  id 'com.google.gms.google-services' version '4.4.2' apply false in -> PROJECT_DIR/android/build/setting.gradle
     ```
     pluginManagement {
     apply from: 'config.gradle'
@@ -59,4 +60,5 @@ plugins {
         google()
     }
     }
+    ```
   Note: Please make sure internet permission is allowed
