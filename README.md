@@ -50,3 +50,27 @@
     }
     }
   Note: Please make sure internet permission is allowed
+
+6. add share 
+```
+// android/src/main/AndroidManifest.xml
+<application
+    ...>
+    <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths" />
+    </provider>
+</application>
+
+// android/src/main/res/xml/file_paths.xml
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="external_files" path="." />
+</paths>
+
+```

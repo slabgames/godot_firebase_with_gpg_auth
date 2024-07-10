@@ -6,6 +6,7 @@ import android.util.ArraySet
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
@@ -29,6 +30,7 @@ import org.godotengine.godot.plugin.SignalInfo
 import org.godotengine.godot.plugin.UsedByGodot
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
 import java.io.StringReader
 import java.util.Date
 
@@ -253,13 +255,22 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     }
 
     @UsedByGodot
-    fun shareImageIntent() {
-        val sendIntent : Intent  = Intent().apply {
-            action  = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT , "Test Share data")
-            type = "text/plain"
+    fun shareImageIntent(imagePath : String) {
+        val imageFile = File(imagePath)
+        val imageUri = activity?.let {
+            FileProvider.getUriForFile(
+                it,
+                "${activity?.packageName}.fileprovider",
+                imageFile)
         }
-        val shareIntent = Intent.createChooser(sendIntent, null)
+        val sendIntent : Intent  = Intent().apply {
+
+            action  = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_STREAM, imageUri)
+            type = "image/png"
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        val shareIntent = Intent.createChooser(sendIntent, "Share image  via")
         godot.startActivity(shareIntent)
     }
 
