@@ -78,19 +78,23 @@
     ...>
     <provider
         android:name="androidx.core.content.FileProvider"
-        android:authorities="${applicationId}.fileprovider"
+        android:authorities="${applicationId}"
         android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/file_paths" />
+        android:grantUriPermissions="true"
+        tools:replace="android:authorities"
+        >
+
+            <meta-data
+    android:name="android.support.FILE_PROVIDER_PATHS"
+    android:resource="@xml/file_paths"
+    tools:replace="android:resource" />
     </provider>
 </application>
 
 // android/src/main/res/xml/file_paths.xml
 <?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <external-path name="external_files" path="." />
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <files-path name="files" path="." />
 </paths>
 
 ```

@@ -4,5 +4,8 @@
     <meta-data
         android:name="org.godotengine.plugin.v1.BoxFirebase"
         android:value="com.boxgramer.boxfirebaselib.BoxFirebase" />
+
+
+
 </application>
 </manifest>

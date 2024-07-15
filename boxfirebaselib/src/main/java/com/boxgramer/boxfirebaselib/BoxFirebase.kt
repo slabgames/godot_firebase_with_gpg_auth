@@ -259,23 +259,31 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     }
 
     @UsedByGodot
-    fun shareImageIntent(imagePath : String) {
-        val imageFile = File(imagePath)
-        val imageUri = activity?.let {
-            FileProvider.getUriForFile(
-                it,
-                "${activity?.packageName}.fileprovider",
-                imageFile)
-        }
-        val sendIntent : Intent  = Intent().apply {
+    fun shareImageIntent(imagePath : String, text: String) {
+        try {
+            val imageFile = File(imagePath)
 
-            action  = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_STREAM, imageUri)
-            type = "image/png"
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            val imageUri = activity?.let {
+                FileProvider.getUriForFile(
+                    it,
+                    it.packageName,
+                    imageFile
+                )
+            }
+            val sendIntent: Intent = Intent().apply {
+
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, text)
+                putExtra(Intent.EXTRA_STREAM, imageUri)
+                type = "image/png"
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            val shareIntent = Intent.createChooser(sendIntent, "Share image  via")
+            godot.startActivity(shareIntent)
+        }catch (e: Exception) {
+            Log.d(TAG, e.message.toString() )
+
         }
-        val shareIntent = Intent.createChooser(sendIntent, "Share image  via")
-        godot.startActivity(shareIntent)
     }
 
 }
