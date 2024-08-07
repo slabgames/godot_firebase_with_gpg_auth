@@ -98,3 +98,29 @@
 </paths>
 
 ```
+7. add ingtegration gpg
+```
+// android/build.gradle
+dependencies {
+ // other dependency here
+
+    implementation("com.google.android.gms:play-services-games-v2:20.1.2")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+}
+
+// android/res/values/strings.xml
+   <?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Replace 0000000000 with your game’s project id. Example value shown above.  -->
+  <string translatable="false"  name="game_services_project_id"> [insert gpg id here without bracket] </string>
+</resources>
+// android/src/main/AndroidManifest.xml
+<application
+    ...>
+ <meta-data android:name="com.google.android.gms.games.APP_ID"
+               android:value="@string/game_services_project_id"/>
+</application>
+
+
+```
+   
