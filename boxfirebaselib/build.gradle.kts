@@ -46,13 +46,11 @@ android {
 dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.gms:play-services-games-v2:20.1.2")
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-analytics:22.0.2")
+    implementation("com.google.firebase:firebase-firestore:25.0.0")
+    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
     implementation("com.beust:klaxon:5.5")
     compileOnly(files("libs/godot-lib.3.5.3.stable.release.aar"))
 
