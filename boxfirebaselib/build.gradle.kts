@@ -3,7 +3,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     //id("com.google.gms.google-services")
-    id("org.jetbrains.compose")
+//    id("org.jetbrains.compose")
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
@@ -19,6 +19,14 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.1"
+//    }
 
 
 
@@ -40,16 +48,22 @@ android {
     }
     composeCompiler {
         reportsDestination = layout.buildDirectory.dir("compose_compiler")
-//    stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
+//        stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-//    kotlinOptions {
-//        jvmTarget = "1.8"
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_1_8
+//        targetCompatibility = JavaVersion.VERSION_1_8
 //    }
+    kotlin {
+//        jvmToolchain {
+//            languageVersion.set(JavaLanguageVersion.of("1.8"))
+//        }
+        // Or shorter:
+        jvmToolchain(8)
+        // For example:
+        jvmToolchain(17)
+    }
     buildToolsVersion = "34.0.0"
     ndkVersion = "27.0.11902837 rc2"
 }
@@ -57,8 +71,11 @@ android {
 
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.17.0")
-    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation("org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable:2.3.10")
+    implementation(platform("androidx.compose:compose-bom:2026.02.00"))
+    implementation("androidx.compose.runtime:runtime")
+//    implementation("androidx.core:core-ktx:1.17.0")
+//    implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("com.google.android.material:material:1.13.0")
     implementation(platform("com.google.firebase:firebase-bom:34.9.0"))
     implementation("com.google.firebase:firebase-analytics")
