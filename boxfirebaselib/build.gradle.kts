@@ -9,10 +9,10 @@ plugins {
 
 
 
-project.ext.set("version", "1.0.1")
+project.ext.set("version", "1.0.2")
 android {
     namespace = "com.boxgramer.boxfirebaselib"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 23
@@ -42,7 +42,7 @@ android {
     libraryVariants.all{
         outputs.all{
             packageLibraryProvider {
-                archiveFileName.set("BoxFirebase-${project.ext.get("version")}.relese.aar")
+                archiveFileName.set("BoxFirebase-${project.ext.get("version")}.release.aar")
             }
         }
     }
@@ -71,7 +71,7 @@ android {
 
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.19.0")
+    implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("com.google.android.material:material:1.14.0")
     implementation(platform("androidx.compose:compose-bom:2026.02.00"))
