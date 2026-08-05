@@ -2,6 +2,7 @@ package com.boxgramer.boxfirebaselib
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.content.FileProvider
@@ -10,16 +11,11 @@ import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.analytics
-import com.google.firebase.analytics.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.firestore
-import com.google.firebase.Firebase
 import org.godotengine.godot.Godot
 import org.godotengine.godot.plugin.GodotPlugin
 import org.godotengine.godot.plugin.SignalInfo
@@ -74,9 +70,9 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
         godot.activity?.let {
             try {
                 FirebaseApp.initializeApp(it)
-                dbFirestore = Firebase.firestore
-                analitic = Firebase.analytics
-                auth = Firebase.auth
+                dbFirestore = FirebaseFirestore.getInstance()
+                analitic = FirebaseAnalytics.getInstance(it)
+                auth = FirebaseAuth.getInstance()
                 Log.d(TAG , "initalize firebase")
 
             }catch ( e : Exception) {
@@ -127,7 +123,7 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
             return
         }
         val parser: Parser = Parser.default()
-        val stringJson: StringBuilder = StringBuilder(jsonSTR);
+        val stringJson: StringBuilder = StringBuilder(jsonSTR)
         val json = parser.parse(stringJson) as JsonObject
         val user = json.toMap()
         dbFirestore?.collection(nameColletion)
@@ -227,10 +223,10 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     fun testLoadData() {
 //        var db = Firebase.firestore
         Log.d("godot", "Test Load Data ")
-        godot.runOnUiThread(Runnable {
+        godot.runOnUiThread {
 
-            var db = Firebase.firestore
-            Log.d("godot", "test firebase run thread, ${db.toString()} ")
+            val db = FirebaseFirestore.getInstance()
+            Log.d("godot", "test firebase run thread, $db ")
             db.collection("data")
                 .get()
                 .addOnSuccessListener { result ->
@@ -241,7 +237,7 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
                 .addOnFailureListener { exception ->
                     Log.w("godot", "Error getting documents . ", exception)
                 }
-        })
+        }
     }
 
     @UsedByGodot
@@ -254,10 +250,10 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
     @UsedByGodot
     fun analitycLogCustom(nameEvent: String, nameParam: String, value: String) {
 
-        Log.d(TAG, "analitic log event : ${nameEvent}, param :  ${nameParam}, value: ${value}")
-        analitic?.logEvent(nameEvent) {
-            param(nameParam, value)
-        }
+        Log.d(TAG, "analitic log event : $nameEvent, param :  $nameParam, value: $value")
+        val params = Bundle()
+        params.putString(nameParam, value)
+        analitic?.logEvent(nameEvent, params)
 
     }
 

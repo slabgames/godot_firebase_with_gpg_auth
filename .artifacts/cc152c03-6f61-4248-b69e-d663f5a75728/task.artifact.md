@@ -1,0 +1,6 @@
+- [ ] Add `import android.os.Bundle`
+- [ ] Fix Firebase initialization in `initialize()`
+- [ ] Update `analitycLogCustom` to use `Bundle`
+- [ ] Remove `logEvent` stub and invalid imports
+- [ ] Clean up redundant semicolons and warnings
+- [ ] Verify build with `gradlew :boxfirebaselib:assembleDebug`
