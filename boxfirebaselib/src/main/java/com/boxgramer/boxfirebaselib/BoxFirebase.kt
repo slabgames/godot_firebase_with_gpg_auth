@@ -186,7 +186,7 @@ class BoxFirebase(godot: Godot?) : GodotPlugin(godot) {
         emitSignal("onStartGetAllData")
 
         dbFirestore?.collection(nameColletion)
-            ?.orderBy("highscore", Query.Direction.DESCENDING)
+            ?.orderBy("score", Query.Direction.DESCENDING)
             ?.limit(10)
             ?.get()
             ?.addOnSuccessListener { snapShot ->
