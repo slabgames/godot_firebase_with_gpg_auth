@@ -12,7 +12,7 @@ plugins {
 project.ext.set("version", "1.0.1")
 android {
     namespace = "com.boxgramer.boxfirebaselib"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23
