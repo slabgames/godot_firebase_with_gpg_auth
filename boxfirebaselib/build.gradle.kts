@@ -12,7 +12,7 @@ plugins {
 project.ext.set("version", "1.0.2")
 android {
     namespace = "com.boxgramer.boxfirebaselib"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 23
@@ -71,10 +71,10 @@ android {
 
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.core:core-ktx:1.19.0")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("com.google.android.material:material:1.14.0")
-    implementation(platform("androidx.compose:compose-bom:2026.02.00"))
+    implementation(platform("androidx.compose:compose-bom:2026.06.01"))
     implementation("androidx.compose.runtime:runtime")
     implementation(platform("com.google.firebase:firebase-bom:34.17.0"))
     implementation("com.google.firebase:firebase-analytics")
